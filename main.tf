@@ -32,8 +32,8 @@ module "EC2" {
   ec2_subnet_id = module.VPC.subnet1_cidr
   ec2_user_data =  <<-EOF
     #!/bin/bash
-    sudo apt-get update -y
-    sudo apt-get install -y docker.io
+    sudo yum update -y
+    sudo yum install -y docker.io
     sudo systemctl start docker
     sudo systemctl enable docker
     # Descargar y ejecutar el contenedor Docker
