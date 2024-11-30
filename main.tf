@@ -37,6 +37,6 @@ module "EC2" {
     sudo systemctl start docker
     sudo systemctl enable docker
     # Descargar y ejecutar el contenedor Docker
-    docker run -dit -p 80:5000 -it eliblandon/game_cache
+    docker run -dit -p 5000:5000 -it eliblandon/game_catch
   EOF
 }
