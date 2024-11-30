@@ -27,7 +27,7 @@ module "EC2" {
   ami_id        = "ami-0ddc798b3f1a5117e"  # ID de la AMI que deseas usar
   instance_type = "t2.micro"               # Cambia el tipo según tus necesidades
   instance_name = "mi_ec2_instance"
-  key_name      ="KP-ITMWebApp"
+  key_name      ="kp-rne-ec2lab"
   vpc_id = module.VPC.vpc_id
   ec2_subnet_id = module.VPC.subnet1_cidr
   ec2_user_data = var.ec2_user_data[terraform.workspace]
