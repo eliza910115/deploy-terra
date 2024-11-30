@@ -37,6 +37,6 @@ module "EC2" {
     sudo systemctl start docker
     sudo systemctl enable docker
     # Descargar y ejecutar el contenedor Docker
-    docker run -dit -p 80:5000 -it gustavoduqueo/snake-web-app
+    docker run -dit -p 80:5000 -it eliblandon/game_cache
   EOF
 }
