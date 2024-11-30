@@ -11,16 +11,16 @@ terraform {
     key                         = "rne/rne.tfstate"
     encrypt                     = true
     region                      = "us-east-1"
-    shared_credentials_files    = ["C:/Users/elizabet.blandon/.aws/credentials"]
-    profile                     = "default"
+    # shared_credentials_files    = ["C:/Users/elizabet.blandon/.aws/credentials"]
+    # profile                     = "default"
     dynamodb_table              = "tfstate_deploy"
   }
 }
  
 # AWS Provider
 provider "aws" {
-  shared_config_files      = ["C:/Users/elizabet.blandon/.aws/config"]
-  shared_credentials_files = ["C:/Users/elizabet.blandon/.aws/credentials"]
+  # shared_config_files      = ["C:/Users/elizabet.blandon/.aws/config"]
+  # shared_credentials_files = ["C:/Users/elizabet.blandon/.aws/credentials"]
   profile                  = "default"
   region                   = "us-east-1"
 }
