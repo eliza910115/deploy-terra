@@ -30,5 +30,13 @@ module "EC2" {
   key_name      ="kp-rne-ec2lab"
   vpc_id = module.VPC.vpc_id
   ec2_subnet_id = module.VPC.subnet1_cidr
-  ec2_user_data = var.ec2_user_data[terraform.workspace]
+  ec2_user_data =  <<-EOF
+    #!/bin/bash
+    sudo apt-get update -y
+    sudo apt-get install -y docker.io
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    # Descargar y ejecutar el contenedor Docker
+    docker run -dit -p 80:5000 -it gustavoduqueo/snake-web-app
+  EOF
 }

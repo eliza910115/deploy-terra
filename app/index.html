@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Ball Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #282c34;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #gameCanvas {
+      border: 2px solid #fff;
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Game variables
+    const barWidth = 100;
+    const barHeight = 15;
+    const ballRadius = 10;
+    let barX = (canvas.width - barWidth) / 2;
+    let ballX = Math.random() * (canvas.width - ballRadius * 2) + ballRadius;
+    let ballY = 0;
+    let ballSpeed = 2;
+    let score = 0;
+    let isGameOver = false;
+
+    // Event listener for bar movement
+    document.addEventListener('mousemove', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      barX = event.clientX - rect.left - barWidth / 2;
+      if (barX < 0) barX = 0;
+      if (barX + barWidth > canvas.width) barX = canvas.width - barWidth;
+    });
+
+    function drawBar() {
+      ctx.fillStyle = '#00ff00';
+      ctx.fillRect(barX, canvas.height - barHeight - 10, barWidth, barHeight);
+    }
+
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = '#ff0000';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function drawScore() {
+      ctx.font = '16px Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('Score: ' + score, 10, 20);
+    }
+
+    function drawGameOver() {
+      ctx.font = '30px Arial';
+      ctx.fillStyle = '#ff0000';
+      ctx.textAlign = 'center';
+      ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
+    }
+
+    function update() {
+      if (isGameOver) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw elements
+      drawBar();
+      drawBall();
+      drawScore();
+
+      // Update ball position
+      ballY += ballSpeed;
+
+      // Check collision with bar
+      if (
+        ballY + ballRadius > canvas.height - barHeight - 10 &&
+        ballX > barX &&
+        ballX < barX + barWidth
+      ) {
+        ballY = 0; // Reset ball position
+        ballX = Math.random() * (canvas.width - ballRadius * 2) + ballRadius;
+        score++;
+        ballSpeed += 0.2; // Increase speed
+      }
+
+      // Check if ball hits the bottom
+      if (ballY > canvas.height) {
+        isGameOver = true;
+        drawGameOver();
+      }
+    }
+
+    function gameLoop() {
+      update();
+      if (!isGameOver) {
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    // Start game loop
+    gameLoop();
+  </script>
+</body>
+</html>
