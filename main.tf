@@ -24,7 +24,7 @@ module "VPC" {
 
 module "EC2" {
   source        = "./modules/EC2"
-  ami_id        = "ami-0ddc798b3f1a5117e"  # ID de la AMI que deseas usar
+  ami_id        = "ami-005fc0f236362e99f"  # ID de la AMI que deseas usar
   instance_type = "t2.micro"               # Cambia el tipo según tus necesidades
   instance_name = "mi_ec2_instance"
   key_name      ="kp-rne-ec2lab"
@@ -32,8 +32,8 @@ module "EC2" {
   ec2_subnet_id = module.VPC.subnet1_cidr
   ec2_user_data =  <<-EOF
     #!/bin/bash
-    sudo yum update -y
-    sudo yum install -y docker.io
+    sudo apt-get update -y
+    sudo apt-get install -y docker.io
     sudo systemctl start docker
     sudo systemctl enable docker
     # Descargar y ejecutar el contenedor Docker
